@@ -31,15 +31,47 @@ chmod +x brave_profile_color.py
 python3 brave_profile_color.py --list
 ```
 
-Output shows profile folders, names, current colors (with swatches), and status:
-- `✓ custom` - Using unrestricted custom color
+Example output:
+
+```
+Found 6 profile(s):
+
+Folder          Profile Name                 Color                Status
+--------------------------------------------------------------------------------
+Default         Personal                     ██ #1565C0           ✓ custom
+Profile 1       Work                         ██ #43A047           ✓ custom
+Profile 2       Shopping                     ██ #FF5500           ✓ custom
+Profile 3       Development                  (not set)            ⚠ restricted
+Profile 4       Banking                      ██ #E91E63           ✓ custom
+Profile 5       Social Media                 (not set)            (none)
+```
+
+Status meanings:
+- `✓ custom` - Using unrestricted custom color (the goal!)
 - `⚠ restricted` - Using the limited color picker
 - `extension` - Using a theme extension
+- `(none)` - No theme color set
 
 ### Apply a color to all profiles
 
 ```bash
 python3 brave_profile_color.py "#FF5500"
+```
+
+Example output:
+
+```
+Color: ██ #FF5500 (value: -43776)
+
+updating Default (Personal): ██ #1565C0 -> ██ #FF5500
+updating Profile 1 (Work): ██ #43A047 -> ██ #FF5500
+updating Profile 2 (Shopping): ██ #FF5500 -> ██ #FF5500
+updating Profile 3 (Development): (not set) -> ██ #FF5500
+
+Updated 4/4 profile(s)
+
+Backups saved to: /Users/you/Library/Application Support/BraveSoftware/Brave-Browser/.color_backups
+Restart Brave Browser to see the changes.
 ```
 
 ### Apply to specific profiles by folder
@@ -51,15 +83,35 @@ python3 brave_profile_color.py "#3366FF" -p Default "Profile 1"
 ### Apply to profiles by name
 
 ```bash
-python3 brave_profile_color.py "#AA0000" -n "Work" "Personal"
+python3 brave_profile_color.py "#AA0000" -n "Work" "Dev"
 ```
 
-Names are case-insensitive and support partial matching.
+Names are case-insensitive and support partial matching:
+
+```
+Color: ██ #AA0000 (value: -5636096)
+
+updating Profile 1 (Work): ██ #43A047 -> ██ #AA0000
+updating Profile 3 (Development): (not set) -> ██ #AA0000
+
+Updated 2/2 profile(s)
+```
 
 ### Preview changes (dry run)
 
 ```bash
 python3 brave_profile_color.py "#00FF00" --dry-run
+```
+
+```
+Color: ██ #00FF00 (value: -16711936)
+DRY RUN - no changes will be made
+
+would update Default (Personal): ██ #1565C0 -> ██ #00FF00
+would update Profile 1 (Work): ██ #43A047 -> ██ #00FF00
+...
+
+Would update 6/6 profile(s)
 ```
 
 ### Custom data directory
